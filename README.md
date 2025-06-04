@@ -2,6 +2,14 @@
 
 Aplicación de tareas desarrollada con Flutter implementando Clean Architecture y SQLite para la persistencia de datos.
 
+# 👥 Participantes
+
+- [@JosePabloSG](https://github.com/JosePabloSG)
+- [@Yoilin](https://github.com/YoilinCastrillo)
+- [@Sofia](https://github.com/SofiaSJ09)
+- [@Aaron](https://github.com/ItsChavesCR)
+- [@Genesis](https://github.com/AlexaGenar)
+
 ## ¿Qué es sqflite?
 
 sqflite es un plugin de Flutter que permite implementar bases de datos SQLite en aplicaciones móviles multiplataforma (Android y iOS). Proporciona funciones para crear, abrir, consultar, insertar, actualizar y eliminar datos almacenados de manera local en dispositivos móviles.
