@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../controllers/task_controller.dart';
+import '../../domain/entities/task.dart';
 
 class TaskListPage extends ConsumerWidget {
   const TaskListPage({super.key});
@@ -75,7 +76,7 @@ class TaskListPage extends ConsumerWidget {
                         icon: const Icon(Icons.delete_outline_rounded, size: 22),
                         color: Theme.of(context).colorScheme.primary,
                         tooltip: 'Eliminar',
-                        onPressed: () => controller.deleteTask(task.id),
+                        onPressed: () => _showDeleteConfirmationDialog(context, controller, task),
                       ),
                     ),
                   );
@@ -180,6 +181,66 @@ class TaskListPage extends ConsumerWidget {
                 ],
               );
             },
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showDeleteConfirmationDialog(BuildContext context, TaskController controller, Task task) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Text(
+                '¿Eliminar tarea?',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                '¿Estás seguro que deseas eliminar la tarea "${task.title}"?',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text('Cancelar'),
+                  ),
+                  const SizedBox(width: 12),
+                  FilledButton(
+                    style: FilledButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      backgroundColor: Theme.of(context).colorScheme.error,
+                    ),
+                    onPressed: () {
+                      controller.deleteTask(task.id);
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Eliminar'),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
